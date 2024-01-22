@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('personal_access_tokens', function (Blueprint $table) {
+        Schema::create('client_apps', function (Blueprint $table) {
             $table->uuid();
-            $table->uuid('client_id');
-            $table->uuid('user_id');
-            $table->timestamp('expires_at')->nullable();
+            $table->string('name');
+            $table->string('return_url');
+            $table->string('public_key');
+            $table->string('secret_key');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('uuid')->on('users')->onDelete('cascade');
-            $table->foreign('client_id')->references('uuid')->on('client_apps')->onDelete('cascade');
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personal_access_tokens');
+        Schema::dropIfExists('client_apps');
     }
 };
